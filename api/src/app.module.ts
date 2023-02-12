@@ -1,8 +1,8 @@
 import { Module } from '@nestjs/common';
 import { ConfigModule } from '@nestjs/config';
-import { AppController } from './app.controller';
-import { AppService } from './app.service';
+
 import configuration from './config/configuration';
+import { TrackModule } from './track/track.module';
 
 @Module({
   imports: [
@@ -12,9 +12,10 @@ import configuration from './config/configuration';
       load: [configuration],
       cache: true, // TODO: use only on dev
     }),
+    TrackModule,
   ],
-  providers: [AppService],
+  providers: [],
   exports: [],
-  controllers: [AppController],
+  controllers: [],
 })
 export class AppModule {}
