@@ -1,7 +1,9 @@
 import { Injectable } from '@nestjs/common';
 
+import { ITrackService } from 'src/domain/interfaces/services/track.service.interface';
+
 @Injectable()
-export class TrackService {
+export class TrackService implements ITrackService {
   async getAll() {
     return 'getAll';
   }

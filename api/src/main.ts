@@ -13,14 +13,16 @@ const bootstrap = async () => {
     cors: true,
   });
 
-  app.setGlobalPrefix('api');
+  const configService = app.get<ConfigService>(ConfigService);
+  const [port, appUrlPrefix, appTitle] = [
+    'port',
+    'appUrlPrefix',
+    'appTitle',
+  ].map((str) => configService.get(str));
+
+  app.setGlobalPrefix(appUrlPrefix);
   app.use(helmet());
   app.useGlobalPipes(new ValidationPipe());
-
-  const configService = app.get<ConfigService>(ConfigService);
-  const [port, appTitle] = ['port', 'appTitle'].map((str) =>
-    configService.get(str),
-  );
 
   await app.listen(port);
 
