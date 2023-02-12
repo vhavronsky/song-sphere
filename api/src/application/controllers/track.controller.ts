@@ -1,10 +1,14 @@
-import { Controller, Get } from '@nestjs/common';
+import { Controller, Get, Inject } from '@nestjs/common';
 
-import { TrackService } from './track.service';
+import { TRACK_SERVICE_TOKEN } from 'src/shared/injection-tokens';
+import { ITrackService } from 'src/domain/interfaces/services/track.service.interface';
 
 @Controller('tracks')
 export class TrackController {
-  constructor(private readonly trackService: TrackService) {}
+  constructor(
+    @Inject(TRACK_SERVICE_TOKEN)
+    private readonly trackService: ITrackService,
+  ) {}
 
   @Get()
   getAll() {

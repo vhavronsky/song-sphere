@@ -3,7 +3,7 @@ import { ConfigModule, ConfigService } from '@nestjs/config';
 import { MongooseModule } from '@nestjs/mongoose';
 
 import configuration from './config/configuration';
-import { TrackModule } from './track/track.module';
+import { TrackModule } from './infrastructure/track.module';
 
 @Module({
   imports: [
