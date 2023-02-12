@@ -13,6 +13,7 @@ const bootstrap = async () => {
     cors: true,
   });
 
+  app.setGlobalPrefix('api');
   app.use(helmet());
   app.useGlobalPipes(new ValidationPipe());
 
