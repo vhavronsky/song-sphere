@@ -1,9 +1,17 @@
+import { ObjectId } from 'mongoose';
+
+import { CreateTrackDto, UpdateTrackDto } from 'src/application/dtos/track';
+
+import { ITrack } from 'src/domain/interfaces/schemas/track.schema.interface';
+
 export interface ITrackService {
-  getAll: () => Promise<string>;
+  getAll: () => Promise<ITrack[]>;
 
-  getOne: () => Promise<string>;
+  getOne: (id: ObjectId) => Promise<ITrack>;
 
-  create: () => Promise<string>;
+  create: (dto: CreateTrackDto) => Promise<ITrack>;
 
-  delete: () => Promise<string>;
+  update: (id: ObjectId, dto: UpdateTrackDto) => Promise<ITrack>;
+
+  delete: (id: ObjectId) => Promise<ObjectId>;
 }
