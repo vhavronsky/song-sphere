@@ -1,7 +1,20 @@
-import { Controller, Get, Inject } from '@nestjs/common';
+import {
+  Body,
+  Controller,
+  Delete,
+  Get,
+  Inject,
+  Param,
+  Post,
+  Put,
+} from '@nestjs/common';
+import { ObjectId } from 'mongoose';
+
+import { CreateTrackDto, UpdateTrackDto } from 'src/application/dtos/track';
+
+import { ITrackService } from 'src/domain/interfaces/services/track.service.interface';
 
 import { TRACK_SERVICE_TOKEN } from 'src/shared/injection-tokens';
-import { ITrackService } from 'src/domain/interfaces/services/track.service.interface';
 
 @Controller('tracks')
 export class TrackController {
@@ -16,17 +29,22 @@ export class TrackController {
   }
 
   @Get(':id')
-  getOne() {
-    return this.trackService.getOne();
+  getOne(@Param('id') id: ObjectId) {
+    return this.trackService.getOne(id);
   }
 
-  @Get()
-  create() {
-    return this.trackService.create();
+  @Post()
+  create(@Body() dto: CreateTrackDto) {
+    return this.trackService.create(dto);
   }
 
-  @Get()
-  delete() {
-    return this.trackService.delete();
+  @Put(':id')
+  update(@Param('id') id: ObjectId, @Body() dto: UpdateTrackDto) {
+    return this.trackService.update(id, dto);
+  }
+
+  @Delete(':id')
+  delete(@Param('id') id: ObjectId) {
+    return this.trackService.delete(id);
   }
 }

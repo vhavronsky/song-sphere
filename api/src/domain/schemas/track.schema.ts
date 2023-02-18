@@ -18,7 +18,7 @@ export class Track implements ITrack {
   @Prop()
   lyrics: string;
 
-  @Prop()
+  @Prop({ default: 0 })
   streams: number;
 
   @Prop()

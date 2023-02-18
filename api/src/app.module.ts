@@ -3,6 +3,7 @@ import { ConfigModule, ConfigService } from '@nestjs/config';
 import { MongooseModule } from '@nestjs/mongoose';
 
 import configuration from './config/configuration';
+import { CommentModule } from './infrastructure/comment.module';
 import { TrackModule } from './infrastructure/track.module';
 
 @Module({
@@ -21,6 +22,7 @@ import { TrackModule } from './infrastructure/track.module';
       cache: true, // TODO: use only on dev
     }),
     TrackModule,
+    CommentModule,
   ],
   providers: [],
   exports: [],
