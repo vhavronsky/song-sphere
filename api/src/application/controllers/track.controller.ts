@@ -1,3 +1,5 @@
+import { ObjectId } from 'mongoose';
+
 import {
   Body,
   Controller,
@@ -14,13 +16,11 @@ import {
   UseInterceptors,
 } from '@nestjs/common';
 import { FileFieldsInterceptor } from '@nestjs/platform-express';
-import { ObjectId } from 'mongoose';
 
-import { TRACK_SERVICE_TOKEN } from 'shared/injection-tokens';
-import { CreateTrackDto, UpdateTrackDto } from 'dtos/track';
-import { OptionalPipe } from 'pipes/optional.pipe';
-
-import { ITrackService } from 'interfaces/services/track.service.interface';
+import { OptionalPipe } from '#pipes/optional.pipe';
+import { CreateTrackDto, UpdateTrackDto } from '#dtos/track';
+import { TRACK_SERVICE_TOKEN } from '#shared/injection-tokens';
+import { ITrackService } from '#interfaces/services/track.service.interface';
 
 @Controller('tracks')
 export class TrackController {

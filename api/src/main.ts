@@ -1,11 +1,10 @@
 import helmet from 'helmet';
-
 import { Logger, ValidationPipe } from '@nestjs/common';
 import { ConfigService } from '@nestjs/config';
 import { NestFactory } from '@nestjs/core';
 
-import configuration from './config/configuration';
 import { AppModule } from './app.module';
+import configuration from './config/configuration';
 
 const bootstrap = async () => {
   const app = await NestFactory.create(AppModule, {

@@ -1,12 +1,13 @@
-import { TrackModule } from './track.module';
-import { MongooseModule } from '@nestjs/mongoose';
 import { Module, Provider } from '@nestjs/common';
+import { MongooseModule } from '@nestjs/mongoose';
 
-import { COMMENT_SERVICE_TOKEN } from 'shared/injection-tokens';
+import { CommentController } from '#controllers/comment.controller';
 
-import { CommentController } from 'controllers/comment.controller';
-import { CommentService } from 'services/comment.service';
-import { Comment, Track, CommentSchema, TrackSchema } from 'domain/schemas';
+import { COMMENT_SERVICE_TOKEN } from '#shared/injection-tokens';
+import { Comment, Track, CommentSchema, TrackSchema } from '#domain/schemas';
+import { CommentService } from '#services/comment.service';
+
+import { TrackModule } from './track.module';
 
 const providers: Provider[] = [
   { provide: COMMENT_SERVICE_TOKEN, useClass: CommentService },

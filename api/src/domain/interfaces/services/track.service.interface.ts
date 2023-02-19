@@ -1,7 +1,7 @@
 import { ObjectId } from 'mongoose';
 
-import { CreateTrackDto, UpdateTrackDto } from 'dtos/track';
-import { ITrack } from 'interfaces/schemas';
+import { CreateTrackDto, UpdateTrackDto } from '#dtos/track';
+import { ITrack } from '#interfaces/schemas';
 
 export interface ITrackService {
   getAll: (limit: number, skip: number) => Promise<ITrack[]>;

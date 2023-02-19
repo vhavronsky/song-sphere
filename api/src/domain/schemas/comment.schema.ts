@@ -1,8 +1,8 @@
-import { Prop, Schema, SchemaFactory } from '@nestjs/mongoose';
 import * as mongoose from 'mongoose';
 
-import { IComment } from 'interfaces/schemas/comment.schema.interface';
+import { Prop, Schema, SchemaFactory } from '@nestjs/mongoose';
 
+import { IComment } from '#interfaces/schemas/comment.schema.interface';
 import { Track } from './track.schema';
 
 export type CommentDocument = mongoose.HydratedDocument<Comment>;

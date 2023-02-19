@@ -1,8 +1,8 @@
-import { Prop, Schema, SchemaFactory } from '@nestjs/mongoose';
 import * as mongoose from 'mongoose';
 
-import { ITrack } from 'interfaces/schemas';
+import { Prop, Schema, SchemaFactory } from '@nestjs/mongoose';
 
+import { ITrack } from '#interfaces/schemas';
 import { Comment } from './comment.schema';
 
 export type TrackDocument = mongoose.HydratedDocument<Track>;

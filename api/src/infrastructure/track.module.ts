@@ -1,11 +1,10 @@
-import { MongooseModule } from '@nestjs/mongoose';
 import { Module, Provider } from '@nestjs/common';
+import { MongooseModule } from '@nestjs/mongoose';
 
-import { TRACK_SERVICE_TOKEN } from 'src/shared/injection-tokens';
-
-import { TrackController } from 'controllers/track.controller';
-import { TrackService } from 'services/track.service';
-import { Track, TrackSchema } from 'domain/schemas';
+import { TrackController } from '#controllers/track.controller';
+import { TRACK_SERVICE_TOKEN } from '#shared/injection-tokens';
+import { Track, TrackSchema } from '#domain/schemas';
+import { TrackService } from '#services/track.service';
 
 import { FileModule } from './file.module';
 
