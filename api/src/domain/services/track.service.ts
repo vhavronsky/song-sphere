@@ -22,23 +22,28 @@ export class TrackService implements ITrackService {
   ) {}
 
   async getAll(limit = 10, skip = 0): Promise<Track[]> {
-    const tracks = await this.trackModel.find().skip(skip).limit(limit);
+    const tracks = await this.trackModel.find().skip(skip).limit(limit).lean();
 
     return tracks;
   }
 
   async search(query: string): Promise<Track[]> {
-    const tracks = await this.trackModel.find({
-      name: { $regex: new RegExp(query, 'i') },
-    });
+    const tracks = await this.trackModel
+      .find({
+        name: { $regex: new RegExp(query, 'i') },
+      })
+      .lean();
 
     return tracks;
   }
 
   async getOne(id: ObjectId): Promise<Track> {
-    const track = await this.trackModel.findById(id).populate('comments');
+    const track = await this.trackModel
+      .findById(id)
+      .populate('comments')
+      .lean();
 
-    return track.save();
+    return track;
   }
 
   async create(
@@ -46,6 +51,7 @@ export class TrackService implements ITrackService {
     image: Express.Multer.File,
     audio: Express.Multer.File,
   ): Promise<Track> {
+    // Create the image and audio files, and get their respective paths
     const imagePath = await this.fileService.createFile(FileType.IMAGE, image);
     const audioPath = await this.fileService.createFile(FileType.AUDIO, audio);
 
@@ -61,43 +67,51 @@ export class TrackService implements ITrackService {
   async update(id: ObjectId, dto: UpdateTrackDto): Promise<Track> {
     const { comments, ...fields } = dto;
 
-    const track = await this.trackModel.findByIdAndUpdate(
-      id,
-      {
-        ...fields,
-        ...(comments
-          ? Array.isArray(comments)
-            ? {
-                $push: {
-                  comments: comments?.[0],
-                },
-              }
-            : { comments: [comments] }
-          : {}),
-      },
-      {
-        new: true,
-      },
-    );
+    const updateQuery = {
+      ...fields,
+      ...this.updateCommentsQuery(comments),
+    };
+    const updateOptions = { new: true };
+
+    const track = await this.trackModel
+      .findByIdAndUpdate(id, updateQuery, updateOptions)
+      .lean();
 
     return track;
   }
 
   async addStream(id: ObjectId): Promise<number> {
-    const updatedTrack = await this.trackModel.findByIdAndUpdate(
-      id,
-      { $inc: { streams: 1 } },
-      {
-        new: true,
-      },
-    );
+    const updatedTrack = await this.trackModel
+      .findByIdAndUpdate(
+        id,
+        { $inc: { streams: 1 } },
+        {
+          new: true,
+        },
+      )
+      .lean();
 
     return updatedTrack.streams;
   }
 
   async delete(id: ObjectId): Promise<ObjectId> {
-    const track = await this.trackModel.findByIdAndDelete(id);
+    const track = await this.trackModel.findByIdAndDelete(id).lean();
 
     return track?.id;
+  }
+
+  private updateCommentsQuery(comments: any) {
+    if (!comments) return {}; // don't update comments if it's not provided in the DTO
+
+    if (Array.isArray(comments))
+      return {
+        $push: {
+          comments: comments[0], // add new comments to the existing array of comments
+        },
+      };
+
+    return {
+      comments: [comments], // create a new array of comments
+    };
   }
 }

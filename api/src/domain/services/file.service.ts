@@ -17,6 +17,7 @@ export class FileService implements IFileService {
     const fileName = uuid.v4() + '.' + fileExtension;
     const filePath = path.resolve(dirPath, fileName);
 
+    // Create the directory if it does not exist already
     if (!fs.existsSync(dirPath)) fs.mkdirSync(dirPath, { recursive: true });
 
     fs.writeFileSync(filePath, buffer);
