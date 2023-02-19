@@ -1,8 +1,7 @@
 import { Module, Provider } from '@nestjs/common';
 
-import { FileService } from 'src/domain/services/file.service';
-
-import { FILE_SERVICE_TOKEN } from 'src/shared/injection-tokens';
+import { FILE_SERVICE_TOKEN } from '#shared/injection-tokens';
+import { FileService } from '#services/file.service';
 
 const providers: Provider[] = [
   { provide: FILE_SERVICE_TOKEN, useClass: FileService },

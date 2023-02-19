@@ -1,13 +1,15 @@
-import { Inject, Injectable } from '@nestjs/common';
-import { InjectModel } from '@nestjs/mongoose';
 import { Model } from 'mongoose';
 
-import { CreateCommentDto } from 'src/application/dtos/comment';
+import { Inject, Injectable } from '@nestjs/common';
+import { InjectModel } from '@nestjs/mongoose';
 
-import { ICommentService } from 'src/domain/interfaces/services/comment.service.interface';
-import { Comment, CommentDocument } from 'src/domain/schemas/comment.schema';
-import { TRACK_SERVICE_TOKEN } from 'src/shared/injection-tokens';
-import { ITrackService } from '../interfaces/services/track.service.interface';
+import { CreateCommentDto } from '#dtos/comment';
+import { TRACK_SERVICE_TOKEN } from '#shared/injection-tokens';
+
+import { Comment, CommentDocument } from '#domain/schemas';
+
+import { ICommentService } from '#interfaces/services/comment.service.interface';
+import { ITrackService } from '#interfaces/services/track.service.interface';
 
 @Injectable()
 export class CommentService implements ICommentService {
