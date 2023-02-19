@@ -7,6 +7,8 @@ import { ITrack } from 'src/domain/interfaces/schemas/track.schema.interface';
 export interface ITrackService {
   getAll: (limit: number, skip: number) => Promise<ITrack[]>;
 
+  search: (query: string) => Promise<ITrack[]>;
+
   getOne: (id: ObjectId) => Promise<ITrack>;
 
   create: (
