@@ -2,13 +2,13 @@ import { Inject, Injectable } from '@nestjs/common';
 import { InjectModel } from '@nestjs/mongoose';
 import { Model, ObjectId } from 'mongoose';
 
-import { CreateTrackDto, UpdateTrackDto } from 'src/application/dtos/track';
+import { CreateTrackDto, UpdateTrackDto } from 'dtos/track';
+import { FILE_SERVICE_TOKEN } from 'shared/injection-tokens';
+import { FileType } from 'types/enums';
+import { ITrackService } from 'interfaces/services/track.service.interface';
+import { IFileService } from 'interfaces/services/file.service.interface';
 
-import { FILE_SERVICE_TOKEN } from 'src/shared/injection-tokens';
-import { ITrackService } from 'src/domain/interfaces/services/track.service.interface';
-import { IFileService } from 'src/domain/interfaces/services/file.service.interface';
-import { Track, TrackDocument } from 'src/domain/schemas/track.schema';
-import { FileType } from '../types/enums';
+import { Track, TrackDocument } from 'domain/schemas';
 
 @Injectable()
 export class TrackService implements ITrackService {

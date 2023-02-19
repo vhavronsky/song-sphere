@@ -1,12 +1,10 @@
 import * as path from 'path';
 import * as fs from 'fs';
-
 import * as uuid from 'uuid';
-
 import { Injectable } from '@nestjs/common';
 
-import { FileType } from 'src/domain/types/enums';
-import { IFileService } from 'src/domain/interfaces/services/file.service.interface';
+import { FileType } from 'types/enums';
+import { IFileService } from 'interfaces/services/file.service.interface';
 
 @Injectable()
 export class FileService implements IFileService {

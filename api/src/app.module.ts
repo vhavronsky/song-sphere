@@ -5,10 +5,11 @@ import { ConfigModule, ConfigService } from '@nestjs/config';
 import { MongooseModule } from '@nestjs/mongoose';
 import { ServeStaticModule } from '@nestjs/serve-static';
 
-import configuration from './config/configuration';
-import { CommentModule } from './infrastructure/comment.module';
-import { FileModule } from './infrastructure/file.module';
-import { TrackModule } from './infrastructure/track.module';
+import configuration from 'config/configuration';
+
+import { CommentModule } from 'infrastructure/comment.module';
+import { FileModule } from 'infrastructure/file.module';
+import { TrackModule } from 'infrastructure/track.module';
 
 @Module({
   imports: [

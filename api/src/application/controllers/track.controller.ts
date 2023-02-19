@@ -16,12 +16,11 @@ import {
 import { FileFieldsInterceptor } from '@nestjs/platform-express';
 import { ObjectId } from 'mongoose';
 
-import { CreateTrackDto, UpdateTrackDto } from 'src/application/dtos/track';
-import { OptionalPipe } from 'src/application/pipes/optional.pipe';
+import { TRACK_SERVICE_TOKEN } from 'shared/injection-tokens';
+import { CreateTrackDto, UpdateTrackDto } from 'dtos/track';
+import { OptionalPipe } from 'pipes/optional.pipe';
 
-import { ITrackService } from 'src/domain/interfaces/services/track.service.interface';
-
-import { TRACK_SERVICE_TOKEN } from 'src/shared/injection-tokens';
+import { ITrackService } from 'interfaces/services/track.service.interface';
 
 @Controller('tracks')
 export class TrackController {
