@@ -9,7 +9,7 @@ export interface ITrack {
 
   streams: number;
 
-  picture: string;
+  image: string;
 
   audio: string;
 

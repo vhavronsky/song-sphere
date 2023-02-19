@@ -1,21 +1,26 @@
-import { Injectable } from '@nestjs/common';
+import { Inject, Injectable } from '@nestjs/common';
 import { InjectModel } from '@nestjs/mongoose';
 import { Model, ObjectId } from 'mongoose';
 
 import { CreateTrackDto, UpdateTrackDto } from 'src/application/dtos/track';
 
+import { FILE_SERVICE_TOKEN } from 'src/shared/injection-tokens';
 import { ITrackService } from 'src/domain/interfaces/services/track.service.interface';
+import { IFileService } from 'src/domain/interfaces/services/file.service.interface';
 import { Track, TrackDocument } from 'src/domain/schemas/track.schema';
+import { FileType } from '../types/enums';
 
 @Injectable()
 export class TrackService implements ITrackService {
   constructor(
     @InjectModel(Track.name)
     private readonly trackModel: Model<TrackDocument>,
+    @Inject(FILE_SERVICE_TOKEN)
+    private readonly fileService: IFileService,
   ) {}
 
-  async getAll(): Promise<Track[]> {
-    const tracks = await this.trackModel.find();
+  async getAll(limit = 10, skip = 0): Promise<Track[]> {
+    const tracks = await this.trackModel.find().skip(skip).limit(limit);
 
     return tracks;
   }
@@ -26,8 +31,19 @@ export class TrackService implements ITrackService {
     return track.save();
   }
 
-  async create(dto: CreateTrackDto): Promise<Track> {
-    const track = await this.trackModel.create(dto);
+  async create(
+    dto: CreateTrackDto,
+    image: Express.Multer.File,
+    audio: Express.Multer.File,
+  ): Promise<Track> {
+    const imagePath = await this.fileService.createFile(FileType.IMAGE, image);
+    const audioPath = await this.fileService.createFile(FileType.AUDIO, audio);
+
+    const track = await this.trackModel.create({
+      ...dto,
+      image: imagePath,
+      audio: audioPath,
+    });
 
     return track;
   }
@@ -55,6 +71,18 @@ export class TrackService implements ITrackService {
     );
 
     return track;
+  }
+
+  async addStream(id: ObjectId): Promise<number> {
+    const updatedTrack = await this.trackModel.findByIdAndUpdate(
+      id,
+      { $inc: { streams: 1 } },
+      {
+        new: true,
+      },
+    );
+
+    return updatedTrack.streams;
   }
 
   async delete(id: ObjectId): Promise<ObjectId> {

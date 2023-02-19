@@ -9,7 +9,7 @@ export class UpdateTrackDto {
 
   readonly streams?: number;
 
-  readonly picture?: string;
+  readonly image?: string;
 
   readonly audio?: string;
 
