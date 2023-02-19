@@ -22,7 +22,7 @@ export class Track implements ITrack {
   streams: number;
 
   @Prop()
-  picture: string;
+  image: string;
 
   @Prop()
   audio: string;
