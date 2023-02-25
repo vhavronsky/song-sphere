@@ -1,7 +1,9 @@
+import { ObjectId } from 'mongoose';
+
 import type { ITrack } from './track.schema.interface';
 
 export interface IComment {
-  _id: string;
+  _id: ObjectId;
 
   username: string;
 

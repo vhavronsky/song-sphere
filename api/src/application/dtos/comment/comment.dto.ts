@@ -1,8 +1,10 @@
+import { ObjectId } from 'mongoose';
+
 import { TrackDto } from '#dtos/track';
 import { Comment } from '#domain/schemas';
 
 export class CommentDto {
-  readonly _id: string;
+  readonly _id: ObjectId;
 
   readonly username: string;
 
