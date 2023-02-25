@@ -61,7 +61,7 @@ export class TrackController {
   ): Promise<TrackDto> {
     const { image, audio } = files;
 
-    return this.trackService.create(dto, image[0], audio[0]);
+    return this.trackService.create(dto, image?.[0], audio?.[0]);
   }
 
   @Put(':id')
