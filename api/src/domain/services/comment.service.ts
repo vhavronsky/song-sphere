@@ -1,30 +1,29 @@
-import { Model } from 'mongoose';
-
 import { Inject, Injectable } from '@nestjs/common';
-import { InjectModel } from '@nestjs/mongoose';
 
 import { CommentDto, CreateCommentDto } from '#dtos/comment';
-import { TRACK_SERVICE_TOKEN } from '#shared/injection-tokens';
-
-import { Comment, CommentDocument } from '#domain/schemas';
+import {
+  COMMENT_REPOSITORY_TOKEN,
+  TRACK_SERVICE_TOKEN,
+} from '#shared/injection-tokens';
 
 import { ICommentService } from '#interfaces/services/comment.service.interface';
 import { ITrackService } from '#interfaces/services/track.service.interface';
+import { ICommentRepository } from '../interfaces/repositories/comment.repository.interface';
 
 @Injectable()
 export class CommentService implements ICommentService {
   constructor(
-    @InjectModel(Comment.name)
-    private readonly commentModel: Model<CommentDocument>,
+    @Inject(COMMENT_REPOSITORY_TOKEN)
+    private readonly commentRepository: ICommentRepository,
     @Inject(TRACK_SERVICE_TOKEN)
     private readonly trackService: ITrackService,
   ) {}
 
   async create(dto: CreateCommentDto): Promise<CommentDto> {
-    const comment = await this.commentModel.create(dto);
+    const comment = await this.commentRepository.create(dto);
 
     await this.trackService.update(dto.trackId, {
-      comments: [comment.id],
+      comments: [comment._id],
     });
 
     return CommentDto.fromEntity(comment);

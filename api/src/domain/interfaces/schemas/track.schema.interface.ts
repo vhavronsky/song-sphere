@@ -1,7 +1,9 @@
+import { ObjectId } from 'mongoose';
+
 import type { IComment } from './comment.schema.interface';
 
 export interface ITrack {
-  _id: string;
+  _id: ObjectId;
 
   name: string;
 

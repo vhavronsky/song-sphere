@@ -9,7 +9,7 @@ export type CommentDocument = mongoose.HydratedDocument<Comment>;
 
 @Schema()
 export class Comment implements IComment {
-  _id: string;
+  _id: mongoose.ObjectId;
 
   @Prop()
   username: string;
