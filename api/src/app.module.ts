@@ -29,7 +29,6 @@ import * as path from 'path';
     }),
     ServeStaticModule.forRoot({
       rootPath: path.resolve(__dirname, 'static'),
-      // renderPath: '/static',
       serveStaticOptions: {
         index: false,
       },
