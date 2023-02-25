@@ -3,7 +3,7 @@ import { Model } from 'mongoose';
 import { Inject, Injectable } from '@nestjs/common';
 import { InjectModel } from '@nestjs/mongoose';
 
-import { CreateCommentDto } from '#dtos/comment';
+import { CommentDto, CreateCommentDto } from '#dtos/comment';
 import { TRACK_SERVICE_TOKEN } from '#shared/injection-tokens';
 
 import { Comment, CommentDocument } from '#domain/schemas';
@@ -20,13 +20,13 @@ export class CommentService implements ICommentService {
     private readonly trackService: ITrackService,
   ) {}
 
-  async create(dto: CreateCommentDto): Promise<Comment> {
+  async create(dto: CreateCommentDto): Promise<CommentDto> {
     const comment = await this.commentModel.create(dto);
 
     await this.trackService.update(dto.trackId, {
       comments: [comment.id],
     });
 
-    return comment;
+    return CommentDto.fromEntity(comment);
   }
 }

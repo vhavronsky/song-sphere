@@ -1,6 +1,8 @@
 import type { IComment } from './comment.schema.interface';
 
 export interface ITrack {
+  _id: string;
+
   name: string;
 
   author: string;

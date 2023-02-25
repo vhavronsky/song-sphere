@@ -1,22 +1,21 @@
 import { ObjectId } from 'mongoose';
 
-import { CreateTrackDto, UpdateTrackDto } from '#dtos/track';
-import { ITrack } from '#interfaces/schemas';
+import { TrackDto, CreateTrackDto, UpdateTrackDto } from '#dtos/track';
 
 export interface ITrackService {
-  getAll: (limit: number, skip: number) => Promise<ITrack[]>;
+  getAll: (limit: number, skip: number) => Promise<TrackDto[]>;
 
-  search: (query: string) => Promise<ITrack[]>;
+  search: (query: string) => Promise<TrackDto[]>;
 
-  getOne: (id: ObjectId) => Promise<ITrack>;
+  getOne: (id: ObjectId) => Promise<TrackDto>;
 
   create: (
     dto: CreateTrackDto,
     image: Express.Multer.File,
     audio: Express.Multer.File,
-  ) => Promise<ITrack>;
+  ) => Promise<TrackDto>;
 
-  update: (id: ObjectId, dto: UpdateTrackDto) => Promise<ITrack>;
+  update: (id: ObjectId, dto: UpdateTrackDto) => Promise<TrackDto>;
 
   addStream: (id: ObjectId) => Promise<number>;
 

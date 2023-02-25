@@ -1,6 +1,5 @@
-import { CreateCommentDto } from '#dtos/comment/create-comment.dto';
-import { IComment } from '#interfaces/schemas/comment.schema.interface';
+import { CommentDto, CreateCommentDto } from '#dtos/comment';
 
 export interface ICommentService {
-  create: (dto: CreateCommentDto) => Promise<IComment>;
+  create: (dto: CreateCommentDto) => Promise<CommentDto>;
 }

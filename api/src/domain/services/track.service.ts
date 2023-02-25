@@ -3,7 +3,7 @@ import { Model, ObjectId } from 'mongoose';
 import { Inject, Injectable } from '@nestjs/common';
 import { InjectModel } from '@nestjs/mongoose';
 
-import { CreateTrackDto, UpdateTrackDto } from '#dtos/track';
+import { TrackDto, CreateTrackDto, UpdateTrackDto } from '#dtos/track';
 import { FileType } from '#types/enums';
 import { FILE_SERVICE_TOKEN } from '#shared/injection-tokens';
 
@@ -21,36 +21,36 @@ export class TrackService implements ITrackService {
     private readonly fileService: IFileService,
   ) {}
 
-  async getAll(limit = 10, skip = 0): Promise<Track[]> {
-    const tracks = await this.trackModel.find().skip(skip).limit(limit).lean();
+  async getAll(limit = 10, skip = 0): Promise<TrackDto[]> {
+    const tracks = await this.trackModel.find().skip(skip).limit(limit);
 
-    return tracks;
+    return tracks.map(TrackDto.fromEntity);
   }
 
-  async search(query: string): Promise<Track[]> {
+  async search(query: string): Promise<TrackDto[]> {
     const tracks = await this.trackModel
       .find({
         name: { $regex: new RegExp(query, 'i') },
       })
       .lean();
 
-    return tracks;
+    return tracks.map(TrackDto.fromEntity);
   }
 
-  async getOne(id: ObjectId): Promise<Track> {
+  async getOne(id: ObjectId): Promise<TrackDto> {
     const track = await this.trackModel
       .findById(id)
       .populate('comments')
       .lean();
 
-    return track;
+    return TrackDto.fromEntity(track);
   }
 
   async create(
     dto: CreateTrackDto,
     image: Express.Multer.File,
     audio: Express.Multer.File,
-  ): Promise<Track> {
+  ): Promise<TrackDto> {
     // Create the image and audio files, and get their respective paths
     const imagePath = await this.fileService.createFile(FileType.IMAGE, image);
     const audioPath = await this.fileService.createFile(FileType.AUDIO, audio);
@@ -61,10 +61,10 @@ export class TrackService implements ITrackService {
       audio: audioPath,
     });
 
-    return track;
+    return TrackDto.fromEntity(track);
   }
 
-  async update(id: ObjectId, dto: UpdateTrackDto): Promise<Track> {
+  async update(id: ObjectId, dto: UpdateTrackDto): Promise<TrackDto> {
     const { comments, ...fields } = dto;
 
     const updateQuery = {
@@ -77,7 +77,7 @@ export class TrackService implements ITrackService {
       .findByIdAndUpdate(id, updateQuery, updateOptions)
       .lean();
 
-    return track;
+    return TrackDto.fromEntity(track);
   }
 
   async addStream(id: ObjectId): Promise<number> {
