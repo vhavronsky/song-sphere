@@ -18,7 +18,7 @@ import {
 import { FileFieldsInterceptor } from '@nestjs/platform-express';
 
 import { OptionalPipe } from '#pipes/optional.pipe';
-import { CreateTrackDto, UpdateTrackDto } from '#dtos/track';
+import { TrackDto, CreateTrackDto, UpdateTrackDto } from '#dtos/track';
 import { TRACK_SERVICE_TOKEN } from '#shared/injection-tokens';
 import { ITrackService } from '#interfaces/services/track.service.interface';
 
@@ -33,17 +33,17 @@ export class TrackController {
   getAll(
     @Query('limit', new OptionalPipe(new ParseIntPipe())) limit: number,
     @Query('skip', new OptionalPipe(new ParseIntPipe())) skip: number,
-  ) {
+  ): Promise<TrackDto[]> {
     return this.trackService.getAll(limit, skip);
   }
 
   @Get('search')
-  search(@Query('query') query: string) {
+  search(@Query('query') query: string): Promise<TrackDto[]> {
     return this.trackService.search(query);
   }
 
   @Get(':id')
-  getOne(@Param('id') id: ObjectId) {
+  getOne(@Param('id') id: ObjectId): Promise<TrackDto> {
     return this.trackService.getOne(id);
   }
 
@@ -58,14 +58,17 @@ export class TrackController {
     @Body() dto: CreateTrackDto,
     @UploadedFiles()
     files: { image: Express.Multer.File[]; audio: Express.Multer.File[] },
-  ) {
+  ): Promise<TrackDto> {
     const { image, audio } = files;
 
     return this.trackService.create(dto, image[0], audio[0]);
   }
 
   @Put(':id')
-  update(@Param('id') id: ObjectId, @Body() dto: UpdateTrackDto) {
+  update(
+    @Param('id') id: ObjectId,
+    @Body() dto: UpdateTrackDto,
+  ): Promise<TrackDto> {
     return this.trackService.update(id, dto);
   }
 
@@ -75,7 +78,7 @@ export class TrackController {
   }
 
   @Delete(':id')
-  delete(@Param('id') id: ObjectId) {
+  delete(@Param('id') id: ObjectId): Promise<ObjectId> {
     return this.trackService.delete(id);
   }
 }

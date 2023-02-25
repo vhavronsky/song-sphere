@@ -9,6 +9,8 @@ export type TrackDocument = mongoose.HydratedDocument<Track>;
 
 @Schema()
 export class Track implements ITrack {
+  _id: string;
+
   @Prop()
   name: string;
 

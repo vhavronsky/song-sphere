@@ -1,6 +1,6 @@
 import { Body, Controller, Inject, Post } from '@nestjs/common';
 
-import { CreateCommentDto } from '#dtos/comment/create-comment.dto';
+import { CommentDto, CreateCommentDto } from '#dtos/comment';
 import { COMMENT_SERVICE_TOKEN } from '#shared/injection-tokens';
 import { ICommentService } from '#interfaces/services/comment.service.interface';
 
@@ -12,7 +12,7 @@ export class CommentController {
   ) {}
 
   @Post()
-  create(@Body() dto: CreateCommentDto) {
+  create(@Body() dto: CreateCommentDto): Promise<CommentDto> {
     return this.commentService.create(dto);
   }
 }
