@@ -5,6 +5,7 @@ import { ServeStaticModule } from '@nestjs/serve-static';
 
 import configuration from '#config/configuration';
 
+import { HealthController } from '#controllers/health.controller';
 import { CommentModule } from '#infrastructure/comment.module';
 import { FileModule } from '#infrastructure/file.module';
 import { TrackModule } from '#infrastructure/track.module';
@@ -35,6 +36,6 @@ import * as path from 'path';
   ],
   providers: [],
   exports: [],
-  controllers: [],
+  controllers: [HealthController],
 })
 export class AppModule {}
