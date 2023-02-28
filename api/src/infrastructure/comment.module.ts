@@ -28,5 +28,6 @@ const providers: Provider[] = [
   ],
   controllers: [CommentController],
   providers,
+  exports: [],
 })
 export class CommentModule {}

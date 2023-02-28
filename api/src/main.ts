@@ -2,9 +2,10 @@ import helmet from 'helmet';
 import { Logger, ValidationPipe } from '@nestjs/common';
 import { ConfigService } from '@nestjs/config';
 import { NestFactory } from '@nestjs/core';
+import { SwaggerModule, DocumentBuilder } from '@nestjs/swagger';
 
-import { AppModule } from './app.module';
-import configuration from './config/configuration';
+import configuration from '#config/configuration';
+import { AppModule } from '#src/app.module';
 
 const bootstrap = async () => {
   const app = await NestFactory.create(AppModule, {
@@ -19,9 +20,16 @@ const bootstrap = async () => {
     'appTitle',
   ].map((str) => configService.get(str));
 
-  app.setGlobalPrefix(appUrlPrefix);
   app.use(helmet());
+  app.setGlobalPrefix(appUrlPrefix);
   app.useGlobalPipes(new ValidationPipe());
+
+  const config = new DocumentBuilder()
+    .setTitle('SongSphere')
+    .setVersion('1.0')
+    .build();
+  const document = SwaggerModule.createDocument(app, config);
+  SwaggerModule.setup('api', app, document);
 
   await app.listen(port);
 

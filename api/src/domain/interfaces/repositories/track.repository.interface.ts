@@ -1,6 +1,6 @@
 import { ObjectId } from 'mongoose';
 
-import { TrackDto, CreateTrackDto, UpdateTrackDto } from '#dtos/track';
+import { CreateTrackDto, UpdateTrackDto } from '#dtos/track';
 import { ITrack } from '#interfaces/schemas';
 
 export interface ITrackRepository {
@@ -10,12 +10,7 @@ export interface ITrackRepository {
 
   findById(id: ObjectId, fieldsToPopulate: string | string[]): Promise<ITrack>;
 
-  create(
-    dto: CreateTrackDto & {
-      audio: TrackDto['audio'];
-      image: TrackDto['image'];
-    },
-  ): Promise<ITrack>;
+  create(dto: CreateTrackDto): Promise<ITrack>;
 
   update(id: ObjectId, dto: UpdateTrackDto): Promise<ITrack>;
 
