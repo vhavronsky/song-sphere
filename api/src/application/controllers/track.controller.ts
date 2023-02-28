@@ -16,12 +16,20 @@ import {
   UseInterceptors,
 } from '@nestjs/common';
 import { FileFieldsInterceptor } from '@nestjs/platform-express';
+import {
+  ApiBody,
+  ApiParam,
+  ApiQuery,
+  ApiConsumes,
+  ApiTags,
+} from '@nestjs/swagger';
 
 import { OptionalPipe } from '#pipes/optional.pipe';
 import { TrackDto, CreateTrackDto, UpdateTrackDto } from '#dtos/track';
 import { TRACK_SERVICE_TOKEN } from '#shared/injection-tokens';
 import { ITrackService } from '#interfaces/services/track.service.interface';
 
+@ApiTags('tracks')
 @Controller('tracks')
 export class TrackController {
   constructor(
@@ -30,6 +38,8 @@ export class TrackController {
   ) {}
 
   @Get()
+  @ApiQuery({ name: 'limit', required: false })
+  @ApiQuery({ name: 'skip', required: false })
   getAll(
     @Query('limit', new OptionalPipe(new ParseIntPipe())) limit: number,
     @Query('skip', new OptionalPipe(new ParseIntPipe())) skip: number,
@@ -43,6 +53,7 @@ export class TrackController {
   }
 
   @Get(':id')
+  @ApiParam({ name: 'id' })
   getOne(@Param('id') id: ObjectId): Promise<TrackDto> {
     return this.trackService.getOne(id);
   }
@@ -54,6 +65,8 @@ export class TrackController {
       { name: 'audio', maxCount: 1 },
     ]),
   )
+  @ApiConsumes('multipart/form-data')
+  @ApiBody({ type: CreateTrackDto })
   create(
     @Body() dto: CreateTrackDto,
     @UploadedFiles()
@@ -65,6 +78,7 @@ export class TrackController {
   }
 
   @Put(':id')
+  @ApiParam({ name: 'id' })
   update(
     @Param('id') id: ObjectId,
     @Body() dto: UpdateTrackDto,
@@ -73,11 +87,13 @@ export class TrackController {
   }
 
   @Patch(':id/stream')
+  @ApiParam({ name: 'id' })
   addStream(@Param('id') id: ObjectId): Promise<number> {
     return this.trackService.addStream(id);
   }
 
   @Delete(':id')
+  @ApiParam({ name: 'id' })
   delete(@Param('id') id: ObjectId): Promise<ObjectId> {
     return this.trackService.delete(id);
   }
