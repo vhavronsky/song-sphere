@@ -1,5 +1,12 @@
-import { Body, Controller, Inject, Post } from '@nestjs/common';
-import { ApiBody, ApiTags } from '@nestjs/swagger';
+import {
+  Body,
+  Controller,
+  HttpCode,
+  HttpStatus,
+  Inject,
+  Post,
+} from '@nestjs/common';
+import { ApiBody, ApiResponse, ApiTags } from '@nestjs/swagger';
 
 import { CommentDto, CreateCommentDto } from '#dtos/comment';
 import { COMMENT_SERVICE_TOKEN } from '#shared/injection-tokens';
@@ -15,6 +22,8 @@ export class CommentController {
 
   @Post()
   @ApiBody({ type: CreateCommentDto })
+  @ApiResponse({ status: HttpStatus.OK, type: CommentDto })
+  @HttpCode(HttpStatus.OK)
   create(@Body() dto: CreateCommentDto): Promise<CommentDto> {
     return this.commentService.create(dto);
   }

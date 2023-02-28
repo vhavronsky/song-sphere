@@ -5,6 +5,8 @@ import {
   Controller,
   Delete,
   Get,
+  HttpCode,
+  HttpStatus,
   Inject,
   Param,
   ParseIntPipe,
@@ -22,6 +24,7 @@ import {
   ApiQuery,
   ApiConsumes,
   ApiTags,
+  ApiResponse,
 } from '@nestjs/swagger';
 
 import { OptionalPipe } from '#pipes/optional.pipe';
@@ -40,6 +43,8 @@ export class TrackController {
   @Get()
   @ApiQuery({ name: 'limit', required: false })
   @ApiQuery({ name: 'skip', required: false })
+  @ApiResponse({ status: HttpStatus.OK, type: [TrackDto] })
+  @HttpCode(HttpStatus.OK)
   getAll(
     @Query('limit', new OptionalPipe(new ParseIntPipe())) limit: number,
     @Query('skip', new OptionalPipe(new ParseIntPipe())) skip: number,
@@ -48,12 +53,17 @@ export class TrackController {
   }
 
   @Get('search')
+  @ApiQuery({ name: 'query' })
+  @ApiResponse({ status: HttpStatus.OK, type: [TrackDto] })
+  @HttpCode(HttpStatus.OK)
   search(@Query('query') query: string): Promise<TrackDto[]> {
     return this.trackService.search(query);
   }
 
   @Get(':id')
   @ApiParam({ name: 'id' })
+  @ApiResponse({ status: HttpStatus.OK, type: TrackDto })
+  @HttpCode(HttpStatus.OK)
   getOne(@Param('id') id: ObjectId): Promise<TrackDto> {
     return this.trackService.getOne(id);
   }
@@ -67,6 +77,8 @@ export class TrackController {
   )
   @ApiConsumes('multipart/form-data')
   @ApiBody({ type: CreateTrackDto })
+  @ApiResponse({ status: HttpStatus.CREATED, type: TrackDto })
+  @HttpCode(HttpStatus.CREATED)
   create(
     @Body() dto: CreateTrackDto,
     @UploadedFiles()
@@ -79,6 +91,8 @@ export class TrackController {
 
   @Put(':id')
   @ApiParam({ name: 'id' })
+  @ApiResponse({ status: HttpStatus.OK, type: TrackDto })
+  @HttpCode(HttpStatus.OK)
   update(
     @Param('id') id: ObjectId,
     @Body() dto: UpdateTrackDto,
@@ -88,12 +102,16 @@ export class TrackController {
 
   @Patch(':id/stream')
   @ApiParam({ name: 'id' })
+  @ApiResponse({ status: HttpStatus.OK, type: Number })
+  @HttpCode(HttpStatus.OK)
   addStream(@Param('id') id: ObjectId): Promise<number> {
     return this.trackService.addStream(id);
   }
 
   @Delete(':id')
   @ApiParam({ name: 'id' })
+  @ApiResponse({ status: HttpStatus.OK, type: String })
+  @HttpCode(HttpStatus.OK)
   delete(@Param('id') id: ObjectId): Promise<ObjectId> {
     return this.trackService.delete(id);
   }
