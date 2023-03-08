@@ -6,6 +6,7 @@ import { SwaggerModule, DocumentBuilder } from '@nestjs/swagger';
 
 import configuration from '#config/configuration';
 import { AppModule } from '#src/app.module';
+import { SWAGGER_AUTH } from '#shared/constants';
 
 const bootstrap = async () => {
   const app = await NestFactory.create(AppModule, {
@@ -27,6 +28,10 @@ const bootstrap = async () => {
   const config = new DocumentBuilder()
     .setTitle('SongSphere')
     .setVersion('1.0')
+    .addBearerAuth(
+      { type: 'http', scheme: 'bearer', bearerFormat: 'JWT' },
+      SWAGGER_AUTH,
+    )
     .build();
   const document = SwaggerModule.createDocument(app, config);
   SwaggerModule.setup('api', app, document);

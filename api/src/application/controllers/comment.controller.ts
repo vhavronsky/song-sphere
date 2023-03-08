@@ -6,12 +6,14 @@ import {
   Inject,
   Post,
 } from '@nestjs/common';
-import { ApiBody, ApiResponse, ApiTags } from '@nestjs/swagger';
+import { ApiBearerAuth, ApiBody, ApiResponse, ApiTags } from '@nestjs/swagger';
 
+import { SWAGGER_AUTH } from '#shared/constants';
 import { COMMENT_SERVICE_TOKEN } from '#shared/injection-tokens';
 import { CommentDto, CreateCommentDto } from '#dtos/comment';
 import { ICommentService } from '#interfaces/services/comment.service.interface';
 
+@ApiBearerAuth(SWAGGER_AUTH)
 @ApiTags('comments')
 @Controller('comments')
 export class CommentController {

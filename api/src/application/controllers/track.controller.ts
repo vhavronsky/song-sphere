@@ -25,13 +25,16 @@ import {
   ApiConsumes,
   ApiTags,
   ApiResponse,
+  ApiBearerAuth,
 } from '@nestjs/swagger';
 
+import { SWAGGER_AUTH } from '#src/shared/constants';
 import { TRACK_SERVICE_TOKEN } from '#shared/injection-tokens';
 import { OptionalPipe } from '#pipes/optional.pipe';
 import { TrackDto, CreateTrackDto, UpdateTrackDto } from '#dtos/track';
 import { ITrackService } from '#interfaces/services/track.service.interface';
 
+@ApiBearerAuth(SWAGGER_AUTH)
 @ApiTags('tracks')
 @Controller('tracks')
 export class TrackController {
