@@ -27,9 +27,9 @@ import {
   ApiResponse,
 } from '@nestjs/swagger';
 
+import { TRACK_SERVICE_TOKEN } from '#shared/injection-tokens';
 import { OptionalPipe } from '#pipes/optional.pipe';
 import { TrackDto, CreateTrackDto, UpdateTrackDto } from '#dtos/track';
-import { TRACK_SERVICE_TOKEN } from '#shared/injection-tokens';
 import { ITrackService } from '#interfaces/services/track.service.interface';
 
 @ApiTags('tracks')

@@ -1,7 +1,7 @@
 import { Injectable } from '@nestjs/common';
 
 import { FileType } from '#types/enums';
-import { IFileService } from '#interfaces/services/file.service.interface';
+import { IFileService } from '#interfaces/services';
 
 import * as fs from 'fs';
 import * as path from 'path';

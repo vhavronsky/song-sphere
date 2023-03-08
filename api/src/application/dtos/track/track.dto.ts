@@ -31,7 +31,7 @@ export class TrackDto {
   readonly comments: CommentDto[];
 
   static fromEntity(entity: Track): TrackDto {
-    const it = new CommentDto();
+    const it = new TrackDto();
     const { _id, name, author, lyrics, streams, image, audio, comments } =
       entity;
 

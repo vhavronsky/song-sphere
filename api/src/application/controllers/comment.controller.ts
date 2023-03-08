@@ -8,8 +8,8 @@ import {
 } from '@nestjs/common';
 import { ApiBody, ApiResponse, ApiTags } from '@nestjs/swagger';
 
-import { CommentDto, CreateCommentDto } from '#dtos/comment';
 import { COMMENT_SERVICE_TOKEN } from '#shared/injection-tokens';
+import { CommentDto, CreateCommentDto } from '#dtos/comment';
 import { ICommentService } from '#interfaces/services/comment.service.interface';
 
 @ApiTags('comments')
