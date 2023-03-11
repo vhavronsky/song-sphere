@@ -4,6 +4,8 @@
 
 **SongSphere** is a music platform currently in progress. This project aims to provide music enthusiasts with a platform to discover, share and listen to music.
 
+[Board in Trello](https://trello.com/invite/b/6wfhIYCI/ATTI3c4b754b3f5cd8df99733a1ba864d0a59CC75CD3/songsphere)
+
 ## Technologies used
 
 - BackEnd:
