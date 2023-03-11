@@ -1,12 +1,12 @@
 import { Module, Provider } from '@nestjs/common';
 import { MongooseModule } from '@nestjs/mongoose';
 
-import { CommentController } from '#controllers/comment.controller';
-
 import {
   COMMENT_SERVICE_TOKEN,
   COMMENT_REPOSITORY_TOKEN,
 } from '#shared/injection-tokens';
+import { CommentController } from '#controllers/comment.controller';
+
 import { Comment, Track, CommentSchema, TrackSchema } from '#domain/schemas';
 import { CommentRepository } from '#repositories/comment.repository';
 import { CommentService } from '#services/comment.service';

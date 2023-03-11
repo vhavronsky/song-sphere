@@ -1,14 +1,13 @@
 import { Inject, Injectable } from '@nestjs/common';
 
-import { CommentDto, CreateCommentDto } from '#dtos/comment';
 import {
   COMMENT_REPOSITORY_TOKEN,
   TRACK_SERVICE_TOKEN,
 } from '#shared/injection-tokens';
+import { CommentDto, CreateCommentDto } from '#dtos/comment';
 
-import { ICommentService } from '#interfaces/services/comment.service.interface';
-import { ITrackService } from '#interfaces/services/track.service.interface';
-import { ICommentRepository } from '../interfaces/repositories/comment.repository.interface';
+import { ICommentRepository } from '#interfaces/repositories';
+import { ICommentService, ITrackService } from '#interfaces/services';
 
 @Injectable()
 export class CommentService implements ICommentService {
