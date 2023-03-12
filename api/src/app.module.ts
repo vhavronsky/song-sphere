@@ -1,5 +1,6 @@
 import { Module } from '@nestjs/common';
 import { ConfigModule, ConfigService } from '@nestjs/config';
+import { DevtoolsModule } from '@nestjs/devtools-integration';
 import { MongooseModule } from '@nestjs/mongoose';
 import { ServeStaticModule } from '@nestjs/serve-static';
 
@@ -17,12 +18,19 @@ import * as path from 'path';
 
 @Module({
   imports: [
+    DevtoolsModule.registerAsync({
+      imports: [ConfigModule],
+      inject: [ConfigService],
+      useFactory: (configService: ConfigService) => ({
+        http: configService.get<string>('appEnv') !== 'production',
+      }),
+    }),
     MongooseModule.forRootAsync({
       imports: [ConfigModule],
-      useFactory: async (configService: ConfigService) => ({
+      inject: [ConfigService],
+      useFactory: (configService: ConfigService) => ({
         uri: configService.get<string>('database.uri'),
       }),
-      inject: [ConfigService],
     }),
     ConfigModule.forRoot({
       envFilePath: '.env', // TODO: dynamic .env file (production or development)

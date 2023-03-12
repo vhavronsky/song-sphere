@@ -1,4 +1,7 @@
+import { AppEnv } from '#shared/enums/app-env';
+
 export default () => ({
+  appEnv: process.env.APP_ENV || AppEnv.DEVELOPMENT,
   port: parseInt(process.env.PORT, 10) || 3000,
   appTitle: process.env.APP_TITLE || 'SongSphere',
   appUrlPrefix: process.env.APP_URL_PREFIX || 'api',

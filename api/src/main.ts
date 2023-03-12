@@ -12,6 +12,7 @@ const bootstrap = async () => {
   const app = await NestFactory.create(AppModule, {
     logger: new Logger(configuration().appTitle, { timestamp: true }),
     cors: true,
+    snapshot: true,
   });
 
   const configService = app.get<ConfigService>(ConfigService);
