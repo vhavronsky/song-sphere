@@ -8,17 +8,17 @@ import {
 } from '@nestjs/common';
 import { ApiBody, ApiResponse, ApiTags } from '@nestjs/swagger';
 
-import { AUTH_SERVICE_TOKEN } from '#src/shared/injection-tokens';
+import { AUTH_SERVICE_TOKEN } from '#shared/injection-tokens';
 import { TokenDto } from '#dtos/token.dto';
 import { CreateUserDto, LoginDto } from '#dtos/user';
-import { AuthService } from '#services/auth.service';
+import { IAuthService } from '#interfaces/services';
 
 @ApiTags('auth')
 @Controller('auth')
 export class AuthController {
   constructor(
     @Inject(AUTH_SERVICE_TOKEN)
-    private readonly authService: AuthService,
+    private readonly authService: IAuthService,
   ) {}
 
   @Post('signup')
