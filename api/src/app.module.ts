@@ -14,10 +14,20 @@ import {
 } from '#src/infrastructure';
 import { HealthController } from '#controllers/health.controller';
 
+import { AppEnv } from './shared/enums/app-env';
 import * as path from 'path';
 
 @Module({
   imports: [
+    ConfigModule.forRoot({
+      envFilePath:
+        process.env.NODE_ENV === AppEnv.PRODUCTION
+          ? '.env'
+          : `.env.${process.env.NODE_ENV}`, // dynamic env file path
+      isGlobal: true,
+      load: [configuration],
+      cache: configuration().appEnv === AppEnv.LOCAL, // caching only locally
+    }),
     DevtoolsModule.registerAsync({
       imports: [ConfigModule],
       inject: [ConfigService],
@@ -31,12 +41,6 @@ import * as path from 'path';
       useFactory: (configService: ConfigService) => ({
         uri: configService.get<string>('database.uri'),
       }),
-    }),
-    ConfigModule.forRoot({
-      envFilePath: '.env', // TODO: dynamic .env file (production or development)
-      isGlobal: true,
-      load: [configuration],
-      cache: true, // TODO: use only on dev
     }),
     ServeStaticModule.forRoot({
       rootPath: path.resolve(__dirname, 'static'),

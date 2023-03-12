@@ -1,6 +1,6 @@
 export enum AppEnv {
   LOCAL = 'local',
-  DEVELOPMENT = 'development',
+  DEVELOP = 'develop',
   STAGING = 'staging',
   PRODUCTION = 'production',
 }
