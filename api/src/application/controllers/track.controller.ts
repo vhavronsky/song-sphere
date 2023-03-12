@@ -15,6 +15,7 @@ import {
   Put,
   Query,
   UploadedFiles,
+  UseGuards,
   UseInterceptors,
 } from '@nestjs/common';
 import { FileFieldsInterceptor } from '@nestjs/platform-express';
@@ -30,6 +31,7 @@ import {
 
 import { SWAGGER_AUTH } from '#src/shared/constants';
 import { TRACK_SERVICE_TOKEN } from '#shared/injection-tokens';
+import { JwtGuard } from '#application/guards/jwt.guard';
 import { OptionalPipe } from '#pipes/optional.pipe';
 import { TrackDto, CreateTrackDto, UpdateTrackDto } from '#dtos/track';
 import { ITrackService } from '#interfaces/services/track.service.interface';
@@ -37,6 +39,7 @@ import { ITrackService } from '#interfaces/services/track.service.interface';
 @ApiBearerAuth(SWAGGER_AUTH)
 @ApiTags('tracks')
 @Controller('tracks')
+@UseGuards(JwtGuard)
 export class TrackController {
   constructor(
     @Inject(TRACK_SERVICE_TOKEN)
