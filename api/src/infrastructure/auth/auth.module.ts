@@ -8,11 +8,14 @@ import { AuthController } from '#controllers/auth.controller';
 import { AuthService } from '#services/auth.service';
 import { UserModule } from '#infrastructure/user.module';
 
+import { JwtStrategy } from './jwt.strategy';
+
 const providers: Provider[] = [
   {
     provide: AUTH_SERVICE_TOKEN,
     useClass: AuthService,
   },
+  JwtStrategy,
 ];
 
 @Module({
@@ -30,7 +33,7 @@ const providers: Provider[] = [
     UserModule,
   ],
   providers,
-  exports: [],
+  exports: [JwtStrategy, PassportModule],
   controllers: [AuthController],
 })
 export class AuthModule {}
