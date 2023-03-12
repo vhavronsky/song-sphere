@@ -1,5 +1,6 @@
 import { Module } from '@nestjs/common';
 import { ConfigModule, ConfigService } from '@nestjs/config';
+import { DevtoolsModule } from '@nestjs/devtools-integration';
 import { MongooseModule } from '@nestjs/mongoose';
 import { ServeStaticModule } from '@nestjs/serve-static';
 
@@ -13,22 +14,33 @@ import {
 } from '#src/infrastructure';
 import { HealthController } from '#controllers/health.controller';
 
+import { AppEnv } from './shared/enums/app-env';
 import * as path from 'path';
 
 @Module({
   imports: [
-    MongooseModule.forRootAsync({
-      imports: [ConfigModule],
-      useFactory: async (configService: ConfigService) => ({
-        uri: configService.get<string>('database.uri'),
-      }),
-      inject: [ConfigService],
-    }),
     ConfigModule.forRoot({
-      envFilePath: '.env', // TODO: dynamic .env file (production or development)
+      envFilePath:
+        process.env.NODE_ENV === AppEnv.PRODUCTION
+          ? '.env'
+          : `.env.${process.env.NODE_ENV}`, // dynamic env file path
       isGlobal: true,
       load: [configuration],
-      cache: true, // TODO: use only on dev
+      cache: configuration().appEnv === AppEnv.LOCAL, // caching only locally
+    }),
+    DevtoolsModule.registerAsync({
+      imports: [ConfigModule],
+      inject: [ConfigService],
+      useFactory: (configService: ConfigService) => ({
+        http: configService.get<string>('appEnv') !== 'production',
+      }),
+    }),
+    MongooseModule.forRootAsync({
+      imports: [ConfigModule],
+      inject: [ConfigService],
+      useFactory: (configService: ConfigService) => ({
+        uri: configService.get<string>('database.uri'),
+      }),
     }),
     ServeStaticModule.forRoot({
       rootPath: path.resolve(__dirname, 'static'),

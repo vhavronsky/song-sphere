@@ -4,7 +4,9 @@
 
 # configuration
 .env
+.env.local
 .env.develop
+.env.staging
 
 # Logs
 logs
