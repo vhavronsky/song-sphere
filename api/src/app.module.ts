@@ -26,7 +26,7 @@ import * as path from 'path';
           : `.env.${process.env.NODE_ENV}`, // dynamic env file path
       isGlobal: true,
       load: [configuration],
-      cache: configuration().appEnv === AppEnv.LOCAL, // caching only locally
+      cache: process.env.NODE_ENV === AppEnv.LOCAL, // caching only locally
     }),
     DevtoolsModule.registerAsync({
       imports: [ConfigModule],
