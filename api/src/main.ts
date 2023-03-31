@@ -9,6 +9,8 @@ import { AppModule } from '#src/app.module';
 import { SWAGGER_AUTH } from '#shared/constants';
 
 const bootstrap = async () => {
+  console.log('ENVIRONMENT VARIABLES:', process.env);
+
   const app = await NestFactory.create(AppModule, {
     logger: new Logger(configuration().appTitle, { timestamp: true }),
     cors: true,
