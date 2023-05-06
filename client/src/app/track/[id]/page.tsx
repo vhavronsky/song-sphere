@@ -1,1 +1,1 @@
-export { TrackPage as default, metadata } from "@/presentation/pages/TrackPage"; 
+export { TrackPage as default, metadata } from "@presentation/pages/TrackPage"; 

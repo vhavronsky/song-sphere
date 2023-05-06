@@ -1,1 +1,1 @@
-export { Loading as default } from "@/presentation/pages/TrackPage";
+export { Loading as default } from "@presentation/pages/TrackPage";
