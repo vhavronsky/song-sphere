@@ -1,0 +1,12 @@
+.content {
+    display: flex;
+    flex-direction: row;
+
+    & > aside {
+        width: 30%;
+    }
+
+    & > main {
+        width: 70%;
+    }
+}
