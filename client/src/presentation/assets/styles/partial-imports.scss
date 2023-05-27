@@ -3,4 +3,9 @@
 * Ensures that all relevant scss gets imported as one chunk, since we're not using modules
 */
 
+@import './src/presentation/pages/RootLayout/root-layout.scss';
 @import './src/presentation/pages/TrackPage/track-page.scss';
+@import './src/presentation/components/MainView/main-view.scss';
+@import './src/presentation/components/Header/header.scss';
+@import './src/presentation/components/PlayingBar/playing-bar.scss';
+@import './src/presentation/components/SideBar/sidebar.scss';
