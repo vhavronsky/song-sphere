@@ -7,4 +7,3 @@ export const PlayingBar: FC = () => {
       </div>
     )
 }
-  

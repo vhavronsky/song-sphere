@@ -7,4 +7,3 @@ export const SideBar: FC = () => {
       </aside>
     )
 }
-  
