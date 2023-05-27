@@ -1,1 +1,1 @@
-export { RootLayout as default } from "@presentation/pages/RootLayout";
+export { RootLayout as default } from '@presentation/layouts/RootLayout';

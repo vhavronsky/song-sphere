@@ -1,9 +1,5 @@
-import { FC } from "react"
+import { FC } from 'react';
 
 export const PlayingBar: FC = () => {
-    return (
-      <div className="playing-bar">
-        PlayingBar
-      </div>
-    )
-}
+  return <footer className="playing-bar">PlayingBar</footer>;
+};

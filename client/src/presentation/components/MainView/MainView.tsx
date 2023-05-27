@@ -1,9 +1,5 @@
-import { FC, PropsWithChildren } from "react";
+import { FC, PropsWithChildren } from 'react';
 
 export const MainView: FC<PropsWithChildren> = ({ children }) => {
-    return (
-        <main className="main-view">
-            {children}
-        </main>
-    )
-}
+  return <main className="main-view">{children}</main>;
+};

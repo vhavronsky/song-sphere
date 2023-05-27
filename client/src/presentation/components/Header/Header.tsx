@@ -1,9 +1,5 @@
-import { FC } from "react"
+import { FC } from 'react';
 
 export const Header: FC = () => {
-    return (
-      <header className="header">
-        Header
-      </header>
-    )
-}
+  return <header className="header">Header</header>;
+};
