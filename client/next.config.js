@@ -1,9 +1,9 @@
 /** @type {import('next').NextConfig} */
+
+require('webpack')
+
 const nextConfig = {
   reactStrictMode: true,
-  experimental: {
-    appDir: true,
-  },
 }
 
 module.exports = nextConfig
