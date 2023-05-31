@@ -1,7 +1,7 @@
 import { FC, PropsWithChildren } from 'react';
 
 import { Header } from '@presentation/components/Header';
-import { SideBar } from '@presentation/components/SideBar';
+import { Sidebar } from '@presentation/components/Sidebar';
 import { PlayingBar } from '@presentation/components/PlayingBar';
 import { MainView } from '@presentation/components/MainView';
 
@@ -13,7 +13,7 @@ export const RootLayout: FC<PropsWithChildren> = ({ children }) => {
       <body>
         <div className="root-content">
           <Header />
-          <SideBar />
+          <Sidebar />
           <PlayingBar />
           <MainView>{children}</MainView>
         </div>
