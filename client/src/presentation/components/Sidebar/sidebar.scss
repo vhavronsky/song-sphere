@@ -1,7 +1,199 @@
 .sidebar {
   grid-area: sidebar;
-  background-color: #121212;
   color: white;
   width: 400px;
-  text-align: center;
+
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  height: 100%;
+  min-height: 0;
+
+  &__nav {
+    background-color: #121212;
+    border-radius: 8px;
+  }
+
+  .nav {
+    &__list {
+      padding: 20px 24px;
+    }
+
+    &__item {
+      padding: 12px 16px;
+    }
+
+    &__link {
+      display: flex;
+      flex-direction: row;
+      align-items: center;
+      height: 40px;
+      gap: 25px;
+
+      color: #b3b3b3;
+
+      &.active,
+      &:hover {
+        color: #fff;
+      }
+
+      & .home-icon,
+      & .search-icon {
+        height: 32px;
+        width: 32px;
+        color: inherit;
+        fill: currentcolor;
+
+        &.active,
+        &:hover {
+          color: #fff;
+        }
+      }
+
+      & .link__title {
+        box-sizing: border-box;
+        font-size: 1.3rem;
+        font-weight: 700;
+        color: inherit;
+      }
+    }
+  }
+
+  &__library {
+    background-color: #121212;
+    border-radius: 8px;
+    padding: 20px 10px;
+
+    display: flex;
+    flex-direction: column;
+    flex: 1;
+
+    & .card {
+      display: flex;
+      flex-direction: row;
+      justify-content: space-between;
+      padding: 12px 28px;
+    }
+
+    & .library__btn {
+      display: flex;
+      align-items: center;
+      color: #b3b3b3;
+      cursor: pointer;
+
+      &:hover {
+        color: #fff;
+        transform: scale(1.001) !important;
+      }
+
+      &__img {
+        margin-right: 12px;
+
+        &.add-icon__wrapper {
+          margin: 0;
+        }
+
+        .library-icon {
+          display: inline-block;
+          height: 32px;
+          width: 32px;
+          fill: currentColor;
+          color: inherit;
+        }
+
+        .add-icon {
+          display: inline-block;
+          height: 24px;
+          width: 24px;
+          fill: currentColor;
+          color: inherit;
+        }
+      }
+
+      &__text {
+        font-size: 1.3rem;
+        font-weight: 700;
+      }
+    }
+
+    & .filters-container {
+      align-items: center;
+      display: flex;
+
+      & > div {
+        margin: 8px 16px;
+        overflow: hidden;
+      }
+
+      .filters {
+        scroll-behavior: smooth;
+        align-items: center;
+        display: flex;
+        overflow-x: scroll;
+        white-space: nowrap;
+        width: 100%;
+        gap: 8px;
+        margin-bottom: 10px;
+
+        &::-webkit-scrollbar {
+          height: 0.3rem;
+          background-color: #797878;
+        }
+
+        &::-webkit-scrollbar-thumb {
+          background-color: #a0a0a0;
+          border-radius: 0.25rem;
+
+          &:hover {
+            background-color: #d1d1d1c0;
+          }
+        }
+
+        & .filter-checkbox {
+          box-sizing: border-box;
+          -webkit-tap-highlight-color: transparent;
+          background-color: transparent;
+          border: 0px;
+          color: inherit;
+          cursor: pointer;
+          line-height: 1;
+          letter-spacing: inherit;
+          padding: 0px;
+          border-radius: 32px;
+          display: inline-flex;
+          vertical-align: middle;
+          max-inline-size: 100%;
+          margin-block-end: 8px;
+          text-decoration: none;
+          overflow-wrap: break-word;
+          position: relative;
+          flex-shrink: 0;
+          z-index: 1;
+
+          & > span {
+            box-sizing: border-box;
+            -webkit-tap-highlight-color: transparent;
+            border-radius: 32px;
+            color: #fff;
+            transition: background-color 0.2s ease 0s, color 0.2s ease 0s;
+            display: inline-flex;
+            min-inline-size: 0px;
+            min-block-size: var(--control-size-sm, 32px);
+            -webkit-box-align: center;
+            align-items: center;
+            padding-block-start: 4px;
+            padding-block-end: 4px;
+            padding-inline-start: 12px;
+            padding-inline-end: 12px;
+            background-color: hsla(0, 0%, 100%, 0.07);
+            font-size: 0.975rem;
+
+            &:hover {
+              background-color: hsla(0, 0%, 100%, 0.116);
+            }
+          }
+        }
+      }
+    }
+  }
 }

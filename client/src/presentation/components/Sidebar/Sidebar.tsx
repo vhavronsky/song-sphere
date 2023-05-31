@@ -1,14 +1,15 @@
+'use client';
+
 import { FC } from 'react';
-import Link from 'next/link';
+
+import { SidebarNav } from './components/SidebarNav';
+import { SidebarLibrary } from './components/SidebarLibrary';
 
 export const Sidebar: FC = () => {
   return (
     <aside className="sidebar">
-      <Link className="link" href="/">
-        Home
-      </Link>
-      <br />
-      Sidebar
+      <SidebarNav />
+      <SidebarLibrary />
     </aside>
   );
 };
